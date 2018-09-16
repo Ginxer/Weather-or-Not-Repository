@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name = "weather"
-            type = "com.shellhacks.josephkocis.weatherornot.CurrentWeather"/>
+            name="weather"
+            type="com.shellhacks.josephkocis.weatherornot.CurrentWeather"/>
 
     </data>
 <android.support.constraint.ConstraintLayout
@@ -25,7 +25,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="100"
+        android:text="88"
         android:textColor="@android:color/white"
         android:textSize="150sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -53,7 +53,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:text="At 5:00 PM it will be"
+        android:text="At 1:00 PM it will be"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/temperatureValue"
@@ -125,7 +125,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="0.88"
+        android:text="200%"
         android:textColor="@android:color/white"
         android:textColorHint="@android:color/white"
         android:textSize="24sp"
@@ -155,7 +155,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="70%"
+        android:text="200%"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/precipLabel"
@@ -171,10 +171,22 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="@{weather.summary}"
+        android:text="Looks like rain today"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/precipValue" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:text="F"
+        android:textColor="@android:color/white"
+        android:textSize="50sp"
+        app:layout_constraintStart_toEndOf="@+id/degreeImageView"
+        app:layout_constraintTop_toBottomOf="@+id/timeValue" />
+
 </android.support.constraint.ConstraintLayout>
 </layout>

@@ -41,6 +41,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.shellhacks.josephkocis.weatherornot.databinding.ActivityWeatherBinding;
+import com.shellhacks.josephkocis.weatherornot.*;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,7 +55,6 @@ public class WeatherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Activity
         final ActivityWeatherBinding binding = DataBindingUtil.setContentView(WeatherActivity.this, R.layout.activity_weather);
 
         String apiKey = "1c3c38f72bfcbc7383f35d598f046aec";
@@ -84,7 +84,6 @@ public class WeatherActivity extends AppCompatActivity {
                         String jsonData = response.body().string();
                         Log.v(TAG, jsonData);
                         if (response.isSuccessful()) {
-
                             currentWeather = getCurrentDetails(jsonData);
 
                             CurrentWeather displayWeather = new CurrentWeather(
@@ -97,7 +96,9 @@ public class WeatherActivity extends AppCompatActivity {
                                     currentWeather.getSummary(),
                                     currentWeather.getFormattedTime()
                             );
-                            binding.setWeather(displayWeather);
+                            //binding.setVariable(0, displayWeather);
+                            //binding.setWeather(displayWeather);
+
 
 
                         } else {
