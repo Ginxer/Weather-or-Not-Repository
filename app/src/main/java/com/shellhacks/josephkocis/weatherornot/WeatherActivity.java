@@ -1,5 +1,6 @@
 package com.shellhacks.josephkocis.weatherornot;
 
+import android.databinding.DataBindingUtil;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
@@ -39,6 +40,8 @@ import android.os.Bundle;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.shellhacks.josephkocis.weatherornot.databinding.ActivityWeatherBinding;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -51,7 +54,8 @@ public class WeatherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_weather);
+        Activity
+        final ActivityWeatherBinding binding = DataBindingUtil.setContentView(WeatherActivity.this, R.layout.activity_weather);
 
         String apiKey = "1c3c38f72bfcbc7383f35d598f046aec";
         double latitude = 25.7574;
@@ -83,6 +87,17 @@ public class WeatherActivity extends AppCompatActivity {
 
                             currentWeather = getCurrentDetails(jsonData);
 
+                            CurrentWeather displayWeather = new CurrentWeather(
+                                    currentWeather.getLocationLabel(),
+                                    currentWeather.getIcon(),
+                                    currentWeather.getTime(),
+                                    currentWeather.getTemperature(),
+                                    currentWeather.getHumidity(),
+                                    currentWeather.getPrecipChance(),
+                                    currentWeather.getSummary(),
+                                    currentWeather.getFormattedTime()
+                            );
+                            binding.setWeather(displayWeather);
 
 
                         } else {
