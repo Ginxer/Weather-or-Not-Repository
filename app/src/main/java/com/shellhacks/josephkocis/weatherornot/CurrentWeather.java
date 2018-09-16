@@ -1,5 +1,9 @@
 package com.shellhacks.josephkocis.weatherornot;
 
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
+import java.util.Date;
+
 public class CurrentWeather {
 
     private String locationLabel;
@@ -9,6 +13,20 @@ public class CurrentWeather {
     private double humidity;
     private double precipChance;
     private String summary;
+    private String timeZone;
+
+    public void setTimeZone(String timeZone) {
+        this.timeZone = timeZone;
+    }
+
+    public String getFormattedTime() {
+        SimpleDateFormat formatter = new SimpleDateFormat("h:mm a");
+
+        formatter.setTimeZone(TimeZone.getTimeZone(timeZone));
+
+        Date dateTime = new Date(time * 1000);
+        return formatter.format(dateTime);
+    }
 
     public String getLocationLabel() {
         return locationLabel;
@@ -64,5 +82,38 @@ public class CurrentWeather {
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    public int getIconId() {
+        int iconId = R.drawable.clear_day;
+
+        switch (icon) {
+            case "rain":
+                iconId = R.drawable.rain;
+                break;
+            case "snow":
+                iconId = R.drawable.snow;
+                break;
+            case "sleet":
+                iconId = R.drawable.sleet;
+                break;
+            case "wind":
+                iconId = R.drawable.wind;
+                break;
+            case "fog":
+                iconId = R.drawable.fog;
+                break;
+            case "cloudy":
+                iconId = R.drawable.cloudy;
+                break;
+            case "partly-cloudy-day":
+                iconId = R.drawable.partly_cloudy;
+                break;
+            case "partly-cloudy-night":
+                iconId = R.drawable.cloudy_night;
+                break;
+        }
+
+        return iconId;
     }
 }

@@ -39,9 +39,14 @@ import android.os.Bundle;
 import android.content.Context;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class WeatherActivity extends AppCompatActivity {
 
     public static final String TAG = WeatherActivity.class.getSimpleName();
+
+    private CurrentWeather currentWeather = new CurrentWeather();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,7 @@ public class WeatherActivity extends AppCompatActivity {
 
         String forecastURL = "https://api.darksky.net/forecast/" + apiKey +
                 "/" + latitude + "," + longitude;
+
 
         if (isNetworkAvailable()) {
 
@@ -71,14 +77,21 @@ public class WeatherActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     try {
-                        Log.v(TAG, response.body().string());
+                        String jsonData = response.body().string();
+                        Log.v(TAG, jsonData);
                         if (response.isSuccessful()) {
-                            currentWeather = getCur
+
+                            currentWeather = getCurrentDetails(jsonData);
+
+
+
                         } else {
                             alertUserAboutError();
                         }
                     } catch (IOException e) {
                         Log.e(TAG, "IO Exception caught ", e);
+                    } catch (JSONException e) {
+                        Log.e(TAG, "JSON Exception caught", e);
                     }
                 }
             });
@@ -92,6 +105,28 @@ public class WeatherActivity extends AppCompatActivity {
 
 
     }
+
+    private CurrentWeather getCurrentDetails(String jsonData) throws JSONException {
+        JSONObject forecast = new JSONObject(jsonData);
+
+        String timezone = forecast.getString("timezone");
+        Log.i(TAG, "From JSON:" + timezone);
+
+        JSONObject currently = forecast.getJSONObject("currently");
+
+        CurrentWeather currentWeather = new CurrentWeather();
+        currentWeather.setHumidity(currently.getDouble("humidity"));
+        currentWeather.setTime(currently.getLong("time"));
+        currentWeather.setIcon(currently.getString("icon"));
+        currentWeather.setLocationLabel("Miami, Florida");
+        currentWeather.setPrecipChance(currently.getDouble("precipProbability"));
+        currentWeather.setSummary(currently.getString("summary"));
+        currentWeather.setTemperature(currently.getDouble("temperature"));
+        currentWeather.setTimeZone(timezone);
+
+        return currentWeather;
+    }
+
 
     private boolean isNetworkAvailable() {
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
